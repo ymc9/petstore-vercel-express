@@ -6,7 +6,7 @@
     "scripts": {
         "generate": "zenstack generate && prisma db push",
         "build": "npm run generate && tsc",
-        "vercel-build": "npm run build && node prisma/seed.js",
+        "vercel-build": "npm run build",
         "dev": "tsx watch api/index.ts",
         "up": "npm install --save-exact -D zenstack@latest @zenstackhq/openapi@latest && npm install --save-exact @zenstackhq/runtime@latest @zenstackhq/server@latest",
         "up-private": "npm install --registry http://localhost:4873 --save-exact -D zenstack@latest @zenstackhq/openapi@latest && npm install --registry http://localhost:4873 --save-exact @zenstackhq/runtime@latest @zenstackhq/server@latest"
