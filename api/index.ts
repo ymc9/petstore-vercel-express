@@ -8,7 +8,7 @@ import express from 'express';
 import swaggerUI from 'swagger-ui-express';
 import jwt from 'jsonwebtoken';
 import PetStoreOpenAPI from '../petstore-api.json';
-// import RestApiHandler from '@zenstackhq/server/api/rest';
+import RestApiHandler from '@zenstackhq/server/api/rest';
 
 const app = express();
 app.use(express.json());
@@ -80,12 +80,8 @@ app.use(
         getPrisma: (req) => {
             return withPresets(prisma, { user: getUser(req) });
         },
-        // handler: RestApiHandler({ endpoint: 'http://localhost:3000/api' }),
+        handler: RestApiHandler({ endpoint: 'http://localhost:3000/api' }),
     })
 );
-
-// app.listen(3000, () =>
-//     console.log('🚀 Server ready at: http://localhost:3000')
-// );
 
 export default app;
