@@ -67,6 +67,8 @@ function getUser(req: Request) {
     }
 }
 
+app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(PetStoreOpenAPI));
+
 app.use(
     '/api',
     ZenStackMiddleware({
@@ -76,8 +78,6 @@ app.use(
         // handler: RestApiHandler({ endpoint: 'http://localhost:3000/api' }),
     })
 );
-
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(PetStoreOpenAPI));
 
 // app.listen(3000, () =>
 //     console.log('🚀 Server ready at: http://localhost:3000')
