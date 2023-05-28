@@ -67,7 +67,12 @@ function getUser(req: Request) {
     }
 }
 
-app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(PetStoreOpenAPI));
+const options = { customCssUrl: '/public/css/swagger-ui.css' };
+app.use(
+    '/api/docs',
+    swaggerUI.serve,
+    swaggerUI.setup(PetStoreOpenAPI, options)
+);
 
 app.use(
     '/api',
