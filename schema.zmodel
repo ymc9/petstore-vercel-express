@@ -1,0 +1,66 @@
+datasource db {
+    provider = 'sqlite'
+    url = 'file:./petstore.db'
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+plugin openapi {
+    provider = '@zenstackhq/openapi'
+    prefix = '/api'
+    title = 'Pet Store API'
+    specVersion = '3.0.0'
+    version = '1.0.0'
+    description = 'My awesome pet store API'
+    flavor = 'rest'
+    output = 'petstore-api.json'
+    securitySchemes = { 
+        myBearer: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }
+    }
+}
+
+model User {
+    id String @id @default(cuid())
+    email String @unique
+    password String @password @omit
+    orders Order[]
+    @@openapi.meta({
+        description: 'A user of the pet store'
+    })
+
+    // everybody can signup
+    @@allow('create', true)
+
+    // user profile is publicly readable
+    @@allow('read', true)
+}
+
+model Pet {
+    id String @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name String
+    category String
+    order Order? @relation(fields: [orderId], references: [id])
+    orderId String?
+
+    // unsold pets are readable to all; sold ones are readable to buyers only
+    @@allow('read', orderId == null || order.user == auth())
+
+    // only allow update to 'orderId' field if it's not set yet (unsold)
+    @@allow('update', name == future().name && category == future().category && orderId == null )
+}
+
+model Order {
+    id String @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    pets Pet[]
+    user User @relation(fields: [userId], references: [id])
+    userId String
+
+    // users can read their orders
+    @@allow('read,create', auth() == user)
+}
