@@ -23,10 +23,12 @@ const petData: Prisma.PetCreateInput[] = [
 async function main() {
     console.log(`Start seeding ...`);
     for (const p of petData) {
-        const pet = await prisma.pet.create({
-            data: p,
+        const pet = await prisma.pet.upsert({
+            where: { id: p.id },
+            create: p,
+            update: {},
         });
-        console.log(`Created Pet with id: ${pet.id}`);
+        console.log(`Upserted Pet with id: ${pet.id}`);
     }
     console.log(`Seeding finished.`);
 }

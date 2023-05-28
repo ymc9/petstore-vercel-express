@@ -4,20 +4,23 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "generate": "zenstack generate && prisma db push",
+        "generate": "zenstack generate",
         "build": "npm run generate && tsc",
-        "vercel-build": "npm run build",
+        "vercel-build": "npm run build && prisma migrate deploy && prisma db seed",
         "dev": "tsx watch api/index.ts",
         "up": "npm install --save-exact -D zenstack@latest @zenstackhq/openapi@latest && npm install --save-exact @zenstackhq/runtime@latest @zenstackhq/server@latest",
-        "up-private": "npm install --registry http://localhost:4873 --save-exact -D zenstack@latest @zenstackhq/openapi@latest && npm install --registry http://localhost:4873 --save-exact @zenstackhq/runtime@latest @zenstackhq/server@latest"
+        "up-preview": "npm install --registry https://packagecloud.io/ymc9/zenstack-preview/npm --save-exact -D zenstack@latest @zenstackhq/openapi@latest && npm install --registry https://packagecloud.io/ymc9/zenstack-preview/npm --save-exact @zenstackhq/runtime@latest @zenstackhq/server@latest"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
+    "prisma": {
+        "seed": "node prisma/seed.js"
+    },
     "dependencies": {
         "@prisma/client": "^4.11.0",
-        "@zenstackhq/runtime": "1.0.0-alpha.116",
-        "@zenstackhq/server": "1.0.0-alpha.116",
+        "@zenstackhq/runtime": "1.0.0-alpha.118",
+        "@zenstackhq/server": "1.0.0-alpha.118",
         "bcryptjs": "^2.4.3",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
@@ -31,11 +34,11 @@
         "@types/node": "^18.15.3",
         "@types/node-fetch": "^2.6.2",
         "@types/swagger-ui-express": "^4.1.3",
-        "@zenstackhq/openapi": "1.0.0-alpha.116",
+        "@zenstackhq/openapi": "1.0.0-alpha.118",
         "openapi-typescript": "^6.2.0",
         "prisma": "^4.11.0",
         "tsx": "^3.12.5",
         "typescript": "^5.0.4",
-        "zenstack": "1.0.0-alpha.116"
+        "zenstack": "1.0.0-alpha.118"
     }
 }
