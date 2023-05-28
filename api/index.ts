@@ -79,6 +79,8 @@ app.use(
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(PetStoreOpenAPI));
 
-app.listen(3000, () =>
-    console.log('🚀 Server ready at: http://localhost:3000')
-);
+// app.listen(3000, () =>
+//     console.log('🚀 Server ready at: http://localhost:3000')
+// );
+
+export default app;
