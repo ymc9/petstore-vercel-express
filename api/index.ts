@@ -7,11 +7,23 @@ import type { Request } from 'express';
 import express from 'express';
 import swaggerUI from 'swagger-ui-express';
 import jwt from 'jsonwebtoken';
-import PetStoreOpenAPI from '../petstore-api.json';
 import RestApiHandler from '@zenstackhq/server/api/rest';
+import fs from 'fs';
+import path from 'path';
 
 const app = express();
 app.use(express.json());
+
+// Vercel can't properly serve the Swagger UI CSS from its npm package, here we
+// load it from a public location
+const options = {
+    customCssUrl:
+        'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.18.3/swagger-ui.css',
+};
+const spec = JSON.parse(
+    fs.readFileSync(path.join(__dirname, '../petstore-api.json'), 'utf8')
+);
+app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(spec, options));
 
 const prisma = new PrismaClient();
 
@@ -66,13 +78,6 @@ function getUser(req: Request) {
         return undefined;
     }
 }
-
-const options = { customCssUrl: '/public/css/swagger-ui.css' };
-app.use(
-    '/api/docs',
-    swaggerUI.serve,
-    swaggerUI.setup(PetStoreOpenAPI, options)
-);
 
 app.use(
     '/api',
