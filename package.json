@@ -4,23 +4,18 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "npm run generate && tsc",
-        "vercel-build": "zenstack generate && tsc && prisma db push && prisma db seed",
+        "build": "zenstack generate && tsc",
+        "vercel-build": "zenstack generate && tsc && prisma db push && tsx prisma/seed.ts",
         "dev": "tsx watch api/app.ts",
-        "package-clean": "npm rm zenstack @zenstackhq/runtime @zenstackhq/server @zenstackhq/openapi",
-        "up": "npm run package-clean && npm install --save-exact -D zenstack@latest @zenstackhq/openapi@latest && npm install --save-exact @zenstackhq/runtime@latest @zenstackhq/server@latest",
-        "up-preview": "npm run package-clean && npm install --registry https://packagecloud.io/ymc9/zenstack-preview/npm --save-exact -D zenstack@latest @zenstackhq/openapi@latest && npm install --registry https://packagecloud.io/ymc9/zenstack-preview/npm --save-exact @zenstackhq/runtime@latest @zenstackhq/server@latest"
+        "up": "npm install --save-exact -D zenstack@latest @zenstackhq/openapi@latest && npm install --save-exact @zenstackhq/runtime@latest @zenstackhq/server@latest"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "prisma": {
-        "seed": "node prisma/seed.js"
-    },
     "dependencies": {
         "@prisma/client": "^4.11.0",
-        "@zenstackhq/runtime": "1.0.0-alpha.125",
-        "@zenstackhq/server": "1.0.0-alpha.125",
+        "@zenstackhq/runtime": "1.0.0-alpha.124",
+        "@zenstackhq/server": "1.0.0-alpha.124",
         "bcryptjs": "^2.4.3",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
@@ -34,13 +29,13 @@
         "@types/node": "^18.15.3",
         "@types/node-fetch": "^2.6.2",
         "@types/swagger-ui-express": "^4.1.3",
-        "@zenstackhq/openapi": "1.0.0-alpha.125",
+        "@zenstackhq/openapi": "1.0.0-alpha.124",
         "is-what": "^4.1.13",
         "openapi-typescript": "^6.2.0",
         "prisma": "^4.11.0",
         "tslib": "^2.5.3",
         "tsx": "^3.12.5",
         "typescript": "^5.0.4",
-        "zenstack": "1.0.0-alpha.125"
+        "zenstack": "1.0.0-alpha.124"
     }
 }

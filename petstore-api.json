@@ -3015,6 +3015,9 @@
       "_jsonapi": {
         "type": "object",
         "description": "An object describing the server’s implementation",
+        "required": [
+          "version"
+        ],
         "properties": {
           "version": {
             "type": "string"
@@ -3038,10 +3041,12 @@
         ],
         "properties": {
           "type": {
-            "type": "string"
+            "type": "string",
+            "description": "Resource type"
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "description": "Resource id"
           }
         }
       },
@@ -3055,10 +3060,12 @@
             "description": "A resource with attributes and relationships",
             "properties": {
               "attributes": {
-                "type": "object"
+                "type": "object",
+                "description": "Resource attributes"
               },
               "relationships": {
-                "type": "object"
+                "type": "object",
+                "description": "Resource relationships"
               }
             }
           }
@@ -3072,28 +3079,39 @@
         "description": "Links related to the resource",
         "properties": {
           "self": {
-            "type": "string"
+            "type": "string",
+            "description": "Link for refetching the curent results"
           }
         }
       },
       "_pagination": {
         "type": "object",
         "description": "Pagination information",
+        "required": [
+          "first",
+          "last",
+          "prev",
+          "next"
+        ],
         "properties": {
           "first": {
             "type": "string",
+            "description": "Link to the first page",
             "nullable": true
           },
           "last": {
             "type": "string",
+            "description": "Link to the last page",
             "nullable": true
           },
           "prev": {
             "type": "string",
+            "description": "Link to the previous page",
             "nullable": true
           },
           "next": {
             "type": "string",
+            "description": "Link to the next page",
             "nullable": true
           }
         }
@@ -3103,18 +3121,30 @@
         "description": "An array of error objects",
         "items": {
           "type": "object",
+          "required": [
+            "status",
+            "code"
+          ],
           "properties": {
             "status": {
-              "type": "string"
+              "type": "string",
+              "description": "HTTP status"
             },
             "code": {
-              "type": "string"
+              "type": "string",
+              "description": "Error code"
+            },
+            "prismaCode": {
+              "type": "string",
+              "description": "Prisma error code if the error is thrown by Prisma"
             },
             "title": {
-              "type": "string"
+              "type": "string",
+              "description": "Error title"
             },
             "detail": {
-              "type": "string"
+              "type": "string",
+              "description": "Error detail"
             }
           }
         }
@@ -3143,10 +3173,12 @@
         "description": "Links related to a relationship",
         "properties": {
           "self": {
-            "type": "string"
+            "type": "string",
+            "description": "Link for fetching this relationship"
           },
           "related": {
-            "type": "string"
+            "type": "string",
+            "description": "Link for fetching the resource represented by this relationship"
           }
         }
       },
